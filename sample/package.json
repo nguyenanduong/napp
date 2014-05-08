@@ -1,0 +1,14 @@
+{
+  "name": "sample",
+  "version": "0.0.1",
+  "description": "Napp sample application",
+  "dependencies": {
+    // NPM dependencies go here...
+  },
+  "jam": {
+    "dependencies": {
+      // Jam dependencies go here...
+      "napp": "*"
+    }
+  }
+}
