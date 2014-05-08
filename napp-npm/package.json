@@ -1,0 +1,8 @@
+{
+  "name": "napp-npm",
+  "version": "0.0.1",
+  "description": "Napp - Node application framework. Npm adaption package",
+  "dependencies": {
+    "express": "*"
+  }
+}

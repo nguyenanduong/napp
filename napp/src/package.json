@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "Napp - Node application framework",
   "dependencies": {
-    // NPM dependencies go here...
+    "express": "*"
   },
   "jam": {
     "dependencies": {
-      // Jam dependencies go here...
+    	"dojo": ">1.8",
+      "wire": "*"
     }
   }
 }

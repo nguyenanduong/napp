@@ -1,4 +1,4 @@
-define(["dojo/declare"], function (declare) { 
+define(["dojo/_base/declare"], function (declare) { 
 	return declare([], {
 		run: function () {
 			

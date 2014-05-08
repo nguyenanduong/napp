@@ -1,4 +1,4 @@
-define(["dojo/declare", "napp/Application"], function (declare, Application) {
+define(["dojo/_base/declare", "napp/Application"], function (declare, Application) {
 	return declare([Application], {
 		run: function () {
 			this.inherited(arguments);

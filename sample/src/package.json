@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "description": "Napp sample application",
   "dependencies": {
-    // NPM dependencies go here...
+    "napp-npm": "*"
   },
   "jam": {
+    "packageDir": "amd_modules",
     "dependencies": {
-      // Jam dependencies go here...
       "napp": "*"
     }
   }
