@@ -1,6 +1,6 @@
 {
   "name": "napp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Napp - Node application framework",
   "dependencies": {
     "express": "*"

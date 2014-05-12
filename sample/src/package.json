@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Napp sample application",
   "dependencies": {
-    "napp-npm": "*"
+    "napp-npm": "*",
+    "express": "*"
   },
   "jam": {
     "packageDir": "amd_modules",
