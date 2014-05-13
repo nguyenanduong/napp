@@ -4,18 +4,30 @@ var path = require('path');
 
 // get app folder from command line arguments
 var args = process.argv.slice(2);
-var appFolder = args[0];
-var appFolder = path.resolve(args[0]);
+var appDir = args[0];
+var appDir = path.resolve(args[0]);
 
-// determine jam folder
+// load package.json and determine jam folder
+var packageJson = require(path.join(appDir, "package.json"));
+var jamDir = path.join(appDir, packageJson.jam.packageDir);
 
 // load require config from jam
+var requireConfig = require(path.join(jamDir, "require.config.js"));
+var packages = requireConfig.packages.map(function (pkg) {
+    return {
+        name: pkg.name,
+        location: path.join(appDir, pkg.location),
+        main: pkg.main || "main"
+    }
+});
+
+// add app package
+packages.push({
+    name: "app",
+    location: appDir
+});
 
 // setup dojo config
-
-// load dojo
-
-// Configuration Object for Dojo Loader:
 dojoConfig = {
     async: 1, // We want to make sure we are using the "modern" loader
     hasCache: {
@@ -27,26 +39,17 @@ dojoConfig = {
     // this really isn't always a good idea and it is better to be
     // explicit about our package map.
 
-    //baseUrl: appFolder,
-
-    packages: [
-
-        // Dojo
-        { name: "dojo", location: path.join(appFolder, "amd_modules/dojo") },
-
-        // Wire et al.
-        { name: "meld", location: path.join(appFolder, "amd_modules/meld"), main: "meld" },
-        { name: "when", location: path.join(appFolder, "amd_modules/when"), main: "when" },
-        { name: "wire", location: path.join(appFolder, "amd_modules/wire"), main: "wire" },
-        
-        { name: "napp", location: path.join(appFolder, "amd_modules/napp") },
-
-        { name: "app", location: appFolder }
-    ],
+    packages: packages,
     
     deps: [ "napp" ] // And array of modules to load on "boot"
 };
  
 // Now load the Dojo loader
-require(path.join(appFolder, "amd_modules/dojo/dojo.js"));
+var dojoPkg = packages.filter(function (pkg) {
+    return pkg.name === "dojo"
+})[0];
+
+var dojoPath = path.join(dojoPkg.location, "dojo.js");
+
+require(dojoPath);
 
