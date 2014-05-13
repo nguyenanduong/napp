@@ -40,6 +40,12 @@ dojoConfig = {
     // explicit about our package map.
 
     packages: packages,
+
+    config: {
+        'napp/main': {
+            appDir: appDir
+        }
+    },
     
     deps: [ "napp" ] // And array of modules to load on "boot"
 };
