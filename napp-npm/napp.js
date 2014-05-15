@@ -22,8 +22,9 @@ var packages = requireConfig.packages.map(function (pkg) {
 });
 
 // add app package
+var appPackage = packageJson.name;
 packages.push({
-    name: "app",
+    name: appPackage,
     location: appDir
 });
 
@@ -43,6 +44,7 @@ dojoConfig = {
 
     config: {
         'napp/main': {
+            appPackage: appPackage,
             appDir: appDir
         }
     },
