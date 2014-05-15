@@ -1,0 +1,11 @@
+{
+  "name": "napp-sample-client",
+  "version": "0.0.1",
+  "description": "Napp sample - Client application",
+  "jam": {
+    "packageDir": "amd_modules",
+    "dependencies": {
+      "napp": "linked"
+    }
+  }
+}
