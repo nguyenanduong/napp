@@ -12,7 +12,7 @@ define([
 		
 		express: null,
 
-		run: function (workingDirectory) {
+		run: function (nappDirectory, workingDirectory) {
             var app = this.express();
             
             // TODO: Testability?
@@ -20,8 +20,12 @@ define([
 
             //app.use(this.express.static(workingDirectory + "/public_html"));
             indexRoutes.get("/", function (req, res) {
-            	res.send(indexHtml);
+            	//res.send(indexHtml);
+            	res.render("index");
             });
+
+			app.set("views", nappDirectory + "/templates");
+			app.set("view engine", "jade");
 
             app.use("/", indexRoutes);
             

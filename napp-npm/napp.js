@@ -28,6 +28,10 @@ packages.push({
     location: appDir
 });
 
+var nappDir = packages.filter(function (pkg) {
+    return pkg.name === "napp";
+})[0].location
+
 // setup dojo config
 dojoConfig = {
     async: 1, // We want to make sure we are using the "modern" loader
@@ -45,6 +49,7 @@ dojoConfig = {
     config: {
         'napp/main': {
             appPackage: appPackage,
+            nappDir: nappDir,
             appDir: appDir
         }
     },
