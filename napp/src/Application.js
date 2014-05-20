@@ -12,9 +12,12 @@ define([
 		
 		express: null,
 
-		run: function (nappDirectory, workingDirectory) {
+		run: function (nappDirectory, workingDirectory, clientPackages) {
             var app = this.express();
             
+			app.set("views", nappDirectory + "/templates");
+			app.set("view engine", "jade");
+
             // TODO: Testability?
             var indexRoutes = this.express.Router();
 
@@ -24,11 +27,13 @@ define([
             	res.render("index");
             });
 
-			app.set("views", nappDirectory + "/templates");
-			app.set("view engine", "jade");
 
             app.use("/", indexRoutes);
-            
+
+			clientPackages.forEach(function(module) {
+                app.use("/script/" + module.name, this.express.static(module.location));                       
+            }, this);
+
             app.listen(this.listen);
             console.log("Listening on " + this.listen);			
 		}

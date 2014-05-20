@@ -5,7 +5,8 @@
   "jam": {
     "packageDir": "amd_modules",
     "dependencies": {
-      "napp": "linked"
+      "napp": "linked",
+      "napp-sample-client": "linked"
     }
   }
 }
