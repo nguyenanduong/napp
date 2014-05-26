@@ -1,10 +1,16 @@
 define([
 	"module", 
+	"dojo/Deferred",
 	"dojo/json",
+	"dojo/promise/all",
+	"dojo/when",
 	"wire!napp/wire-spec"
 ], function (
 	module,
-	json, 
+	Deferred,
+	json,
+	all,
+	when,
 	nappSpec) {
 
 	var moduleConfig = module.config();
@@ -25,24 +31,36 @@ define([
 
 		var clientPackages = [];
 		var addClientPackages = function (pkg) {
+			var def = new Deferred();
 			clientPackages.push(pkg);
 			require(["dojo/text!" + pkg.location + "/package.json"], function (packageJsonTxt) {
 				var packageJson = json.parse(packageJsonTxt);
 				var depPkgName;
 
 				if (packageJson.jam && packageJson.jam.dependencies) {
+					var loadDepPackagesPromise = [];
 					for (depPkgName in packageJson.jam.dependencies) {
 						if (packageJson.jam.dependencies.hasOwnProperty(depPkgName)) {
 							var devPkg = findPackage(depPkgName);
-							addClientPackages(devPkg);
+							loadDepPackagesPromise.push(addClientPackages(devPkg));
 						}
 					};
+					when(all(loadDepPackagesPromise), function () {
+						def.resolve();
+					}, function () {
+						def.reject();
+					})
+				} else {
+					def.resolve();
 				}
+
 			});
+
+			return def.promise;
 		};
 
-		addClientPackages(clientAppPackage);
-
-		app.run(moduleConfig.nappDir, moduleConfig.appDir, clientPackages);
+		when(addClientPackages(clientAppPackage), function () {
+			app.run(moduleConfig.nappDir, moduleConfig.appDir, clientPackages);
+		});
 	});
 });
