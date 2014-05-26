@@ -22,7 +22,15 @@ define([
             //app.use(this.express.static(workingDirectory + "/public_html"));
             indexRoutes.get("/", function (req, res) {
             	//res.send(indexHtml);
-            	res.render("index");
+            	res.render("index", {
+            		clientPackages: clientPackages.map(function (pkg) {
+            			return {
+            				name: pkg.name,
+            				main: pkg.main,
+            				location: "/script/" + pkg.name
+            			};
+            		})
+            	});
             });
 
 

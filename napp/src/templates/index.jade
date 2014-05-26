@@ -2,5 +2,13 @@ doctype html
 html
   head
     title Napp - Zero page HTML 5 application
+    script(type='text/javascript').
+      dojoConfig = {
+        async: 1,
+        isDebug: true,
+        packages: !{JSON.stringify(clientPackages)},
+        deps: ['napp-sample-client']
+      };
+    script(type='text/javascript' src='/script/dojo/dojo.js').
   body
     div#root
