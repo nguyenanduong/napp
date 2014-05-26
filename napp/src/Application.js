@@ -1,11 +1,9 @@
 define([
 	"dojo/_base/declare",
-	"dojo/Stateful",
-	"dojo/text!./resources/index.html"
+	"dojo/Stateful"
 ], function (
 	declare,
-	Stateful,
-	indexHtml) { 
+	Stateful) { 
 
 	return declare([Stateful], {
 		listen: null,

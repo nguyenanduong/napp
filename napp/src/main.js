@@ -40,7 +40,6 @@ define([
 				}
 			});
 		};
-		debugger;
 
 		addClientPackages(clientAppPackage);
 
