@@ -6,8 +6,11 @@ html
       dojoConfig = {
         async: 1,
         isDebug: true,
+        paths: { 
+          "wire/domReady": "/script/domReady/domReady"
+        },
         packages: !{JSON.stringify(clientPackages)},
-        deps: ['napp-sample-client']
+        deps: ['napp/bootstrapper/client']
       };
     script(type='text/javascript' src='/script/dojo/dojo.js').
   body

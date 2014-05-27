@@ -14,10 +14,11 @@ var jamDir = path.join(appDir, packageJson.jam.packageDir);
 // load require config from jam
 var requireConfig = require(path.join(jamDir, "require.config.js"));
 var packages = requireConfig.packages.map(function (pkg) {
+    var main = pkg.main && /.js$/.test(pkg.main) ? pkg.main.substr(0, pkg.main.length - 3) : pkg.main;
     return {
         name: pkg.name,
         location: path.join(appDir, pkg.location),
-        main: pkg.main || "main"
+        main: main || "main"
     }
 });
 
