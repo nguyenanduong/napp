@@ -47,7 +47,7 @@ dojoConfig = {
     packages: packages,
 
     config: {
-        'napp/main': {
+        'napp/bootstrapper/server': {
             appPackage: appPackage,
             packages: packages,
             nappDir: nappDir,
@@ -55,7 +55,7 @@ dojoConfig = {
         }
     },
     
-    deps: [ "napp" ] // Load the napp module which contains the bootstrapper.
+    deps: [ "napp/bootstrapper/server" ] // Load the napp module which contains the bootstrapper.
 };
  
 // Now load the Dojo loader
