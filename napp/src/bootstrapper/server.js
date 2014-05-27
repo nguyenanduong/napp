@@ -4,7 +4,7 @@ define([
 	"dojo/json",
 	"dojo/promise/all",
 	"dojo/when",
-	"wire!napp/wire-spec"
+	"wire!napp/server-spec"
 ], function (
 	module,
 	Deferred,
