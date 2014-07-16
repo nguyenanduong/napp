@@ -4,23 +4,23 @@ define([
 	"dojo/json",
 	"dojo/promise/all",
 	"dojo/when",
-	"wire!napp/server-spec"
+	"wire"
 ], function (
 	module,
 	Deferred,
 	json,
 	all,
 	when,
-	nappSpec) {
+	wire) {
 
 	// TODO: Extract code to classes and keep the bootstrap script minimal
 
 	var moduleConfig = module.config();
 	var appPackage = moduleConfig.appPackage;
-	require(["wire!" + appPackage + "/wire-spec"], function (appSpec) {
-		var app = appSpec.application || nappSpec.application;
+	when(wire(["napp/server-spec", appPackage + "/wire-spec"]), function (spec) {
+		var app = spec.application;
 
-		var clientAppPackageName = appSpec.clientAppPackage;
+		var clientAppPackageName = spec.clientAppPackage;
 
 		var packages = moduleConfig.packages;
 		var findPackage = function (pkgName) {
