@@ -13,6 +13,8 @@ define([
 	when,
 	nappSpec) {
 
+	// TODO: Extract code to classes and keep the bootstrap script minimal
+
 	var moduleConfig = module.config();
 	var appPackage = moduleConfig.appPackage;
 	require(["wire!" + appPackage + "/wire-spec"], function (appSpec) {
@@ -60,7 +62,7 @@ define([
 		};
 
 		when(addClientPackages(clientAppPackage), function () {
-			app.run(moduleConfig.nappDir, moduleConfig.appDir, clientPackages);
+			app.run(moduleConfig.nappDir, moduleConfig.appDir, clientAppPackage, clientPackages);
 		});
 	});
 });

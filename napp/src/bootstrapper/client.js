@@ -1,10 +1,18 @@
 define([
 	"module",
-	"wire!napp/client-spec"
+	"dojo/when",
+	"wire"
 ], function (
 	module,
-	nappSpec) {
+	when,
+	wire) {
 
-	var rootNode = nappSpec.rootNode;
-	rootNode.textContent = "Ehlo";
+	var moduleConfig = module.config();
+	var appPackage = moduleConfig.appPackage;
+
+	when(wire(["napp/client-spec", appPackage + "/wire-spec"]), function (spec) {
+		var app = spec.application;
+		app.run();
+	});
+
 });

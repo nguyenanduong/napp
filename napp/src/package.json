@@ -8,6 +8,7 @@
   "jam": {
     "dependencies": {
     	"dojo": ">1.8",
+      "dijit": ">1.8",
       "domReady": "2.0.1",
       "wire": "*"
     }
