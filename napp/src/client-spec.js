@@ -3,7 +3,9 @@ define({
     views: {
         home: {
         	center: { 
-        		widget: {  }
+        		widget: {
+					module: "napp/IntroView"
+				},
         	}
         }
     },

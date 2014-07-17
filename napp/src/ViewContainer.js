@@ -1,6 +1,7 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/hash",
     "dojo/router",
     
     "dijit/_WidgetBase",
@@ -14,6 +15,7 @@ define([
 ], function (
     declare,
     lang,
+    hash,
     router,
     
     _WidgetBase, 
@@ -36,7 +38,7 @@ define([
         postCreate: function () {
             this.inherited(arguments);
 
-            router.register(/^(\w*)\?(.*)$/, (this, function (evt) {
+            router.register(/^(\w*)(\?*)(.*)$/, (this, function (evt) {
                 var viewName = evt.params[0],
                     paramString = evt.params[1],
                     paramHash = {};
@@ -51,7 +53,10 @@ define([
                 this._loadView(viewName, paramHash);
             }).bind(this));
 
-            router.startup();   
+            router.startup();
+            if (hash() === "") {
+                router.go(this.defaultView);
+            }
         },
         
         destroy: function () {

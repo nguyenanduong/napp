@@ -9,7 +9,7 @@ define([
         viewContainer: null,
         
         run: function () {
-        	this.viewContainer.startup();    
+        	this.viewContainer.startup();
         }
     });
 });
