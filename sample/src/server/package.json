@@ -2,6 +2,10 @@
   "name": "napp-sample-server",
   "version": "0.0.1",
   "description": "Napp sample - Server application",
+  "dependencies": {
+    "express": "*",
+    "jade": "*"
+  },
   "jam": {
     "packageDir": "amd_modules",
     "dependencies": {

@@ -2,9 +2,6 @@
   "name": "napp",
   "version": "0.0.2",
   "description": "Napp - Node application framework",
-  "dependencies": {
-    "express": "*"
-  },
   "jam": {
     "dependencies": {
     	"dojo": ">1.8",
