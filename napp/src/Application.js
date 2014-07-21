@@ -24,7 +24,7 @@ define([
 
                         this._createIndexRoute(app, clientPackages, clientAppPackageName);
                         this._createScriptRoutes(app, clientPackages);
-                        this._createStoreRoutes(app);
+                        this._createStoreRoutes(app, settings.stores);
 
                         app.listen(this.listen);
                         console.log("Listening on " + this.listen);                 
@@ -60,9 +60,23 @@ define([
                   }, this);
             },
 
-            _createStoreRoutes: function (app) {
-                  var storeRoutes = this.express.Router();
-                  app.use("/store", storeRoutes);
+            _createStoreRoutes: function (app, stores) {
+                  var router;
+
+                  for (var storeName in stores) {
+                        if (stores.hasOwnProperty(storeName)) {
+                              router = this.express.Router();
+
+                              router.get("/:id", function (req, res) {
+                                    var store = stores[storeName];
+            
+                                    var item = store.get(req.params.id);
+                                    res.json(item);
+                              });
+
+                              app.use("/store/" + storeName, router);
+                        }
+                  }
             }
 	})
 })

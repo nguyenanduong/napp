@@ -16,9 +16,11 @@ define([
 
 	require([bootstrapSpec, appPackage + "/wire-spec"], function (nappSpec, appSpec) {
 		var spec = lang.deepMixin(nappSpec, appSpec);
-		when(wire(spec), function (spec) {
-			var app = spec.application;
-			app.run(spec.settings);
+		when(wire(spec), function (loadedSpec) {
+			var app = loadedSpec.application;
+			var settings = loadedSpec.settings;
+			
+			app.run(settings);
 		});
 	});
 });

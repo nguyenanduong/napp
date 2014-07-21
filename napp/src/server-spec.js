@@ -3,10 +3,6 @@ define({
         module: "dojo/node!express"
     },
 
-    settings: {
-        clientAppPackage: "napp-sample-client"
-    },
-
     dojoConfig: {
         module: "dojo/_base/config"
     },
