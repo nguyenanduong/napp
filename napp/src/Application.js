@@ -1,48 +1,68 @@
 define([
 	"dojo/_base/declare",
-	"dojo/Stateful"
+	"dojo/Stateful",
+      "dojo/when"
 ], function (
 	declare,
-	Stateful) { 
+	Stateful,
+      when) { 
 
 	return declare([Stateful], {
-		listen: null,
-		
+		listen: null,		
 		express: null,
 
-		run: function (nappDirectory, workingDirectory, clientAppPackage, clientPackages) {
-                  var app = this.express();
-                  
-      			app.set("views", nappDirectory + "/templates");
-      			app.set("view engine", "jade");
+            packageManager: null,
 
+		run: function (settings) {
+                  var clientAppPackageName = settings.clientAppPackage;
+
+                  when(this.packageManager.getDependentPackages(clientAppPackageName), function (clientPackages) {
+                        var app = this.express();                        
+                        var nappDirectory = this.packageManager.findPackage("napp").location;
+                        app.set("views", nappDirectory + "/templates");
+                        app.set("view engine", "jade");
+
+                        this._createIndexRoute(app, clientPackages, clientAppPackageName);
+                        this._createScriptRoutes(app, clientPackages);
+                        this._createStoreRoutes(app);
+
+                        app.listen(this.listen);
+                        console.log("Listening on " + this.listen);                 
+
+                  }.bind(this));
+		},
+
+            _createIndexRoute: function (app, clientPackages, clientAppPackageName) {
                   // TODO: Testability?
                   var indexRoutes = this.express.Router();
 
-                  //app.use(this.express.static(workingDirectory + "/public_html"));
                   indexRoutes.get("/", function (req, res) {
-                  	//res.send(indexHtml);
-                  	res.render("index", {
-                  		clientPackages: clientPackages.map(function (pkg) {
-                  			return {
-                  				name: pkg.name,
-                  				main: pkg.main,
-                  				location: "/script/" + pkg.name
-                  			};
-                  		}),
-                              clientAppPackage: clientAppPackage
-                  	});
+                        //res.send(indexHtml);
+                        res.render("index", {
+                              clientPackages: clientPackages.map(function (pkg) {
+                                    return {
+                                          name: pkg.name,
+                                          main: pkg.main,
+                                          location: "/script/" + pkg.name
+                                    };
+                              }),
+                              clientAppPackageName: clientAppPackageName
+                        });
                   });
 
 
                   app.use("/", indexRoutes);
+            },
 
-      			clientPackages.forEach(function(module) {
+            _createScriptRoutes: function (app, clientPackages) {
+                  clientPackages.forEach(function(module) {
                       app.use("/script/" + module.name, this.express.static(module.location));                       
                   }, this);
+            },
 
-                  app.listen(this.listen);
-                  console.log("Listening on " + this.listen);			
-		}
+            _createStoreRoutes: function (app) {
+                  var storeRoutes = this.express.Router();
+                  app.use("/store", storeRoutes);
+            }
 	})
 })

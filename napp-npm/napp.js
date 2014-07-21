@@ -4,7 +4,6 @@ var path = require('path');
 
 // get app folder from command line arguments
 var args = process.argv.slice(2);
-var appDir = args[0];
 var appDir = path.resolve(args[0]);
 
 // load package.json and determine jam folder
@@ -50,7 +49,6 @@ dojoConfig = {
     config: {
         'napp/bootstrapper/server': {
             appPackage: appPackage,
-            packages: packages,
             nappDir: nappDir,
             appDir: appDir
         }

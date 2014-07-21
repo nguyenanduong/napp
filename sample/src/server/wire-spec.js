@@ -1,3 +1,5 @@
 define({
-	clientAppPackage: "napp-sample-client"
+	settings: {
+		clientAppPackage: "napp-sample-client"
+	}
 });

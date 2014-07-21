@@ -16,7 +16,7 @@ define([
 		var spec = lang.deepMixin(nappSpec, appSpec);
 		when(wire(spec), function (spec) {
 			var app = spec.application;
-			app.run();
+			app.run(spec.settings);
 		});
 	});
 

@@ -1,12 +1,14 @@
 define({
-    defaultView: "home",
-    views: {
-        home: {
-        	center: { 
-        		widget: {
-					module: "napp/IntroView"
-				},
-        	}
+    settings: {
+        defaultView: "home",
+        views: {
+            home: {
+            	center: { 
+            		widget: {
+    					module: "napp/IntroView"
+    				},
+            	}
+            }
         }
     },
 
@@ -15,8 +17,8 @@ define({
             module: "napp/ViewContainer",
             args: [
                 {
-                    defaultView: { $ref: "defaultView" },
-                    views: { $ref: "views" }
+                    defaultView: { $ref: "settings.defaultView" },
+                    views: { $ref: "settings.views" }
                 },
                 
                 { $ref: "dom!root" }
