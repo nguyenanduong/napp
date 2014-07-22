@@ -20,7 +20,7 @@ define({
 
     application: {
         create: {
-            module: "napp/Application",
+            module: "napp/ServerApplication",
             args: {
             	listen: 8282,
             	express: { $ref: "express" },
