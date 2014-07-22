@@ -1,11 +1,19 @@
 define([
 	"dojo/_base/declare",
+      "dojo/_base/lang",
+      "dojo/json",
 	"dojo/Stateful",
-      "dojo/when"
+      "dojo/string",
+      "dojo/when",
+      "dojo/text!./templates/index.html"
 ], function (
 	declare,
+      lang,
+      json,
 	Stateful,
-      when) { 
+      string,
+      when,
+      indexTpl) { 
 
 	return declare([Stateful], {
 		listen: null,		
@@ -18,9 +26,6 @@ define([
 
                   when(this.packageManager.getDependentPackages(clientAppPackageName), function (clientPackages) {
                         var app = this.express();                        
-                        var nappDirectory = this.packageManager.findPackage("napp").location;
-                        app.set("views", nappDirectory + "/templates");
-                        app.set("view engine", "jade");
 
                         this._createIndexRoute(app, clientPackages, clientAppPackageName);
                         this._createScriptRoutes(app, clientPackages);
@@ -37,17 +42,20 @@ define([
                   var indexRoutes = this.express.Router();
 
                   indexRoutes.get("/", function (req, res) {
-                        //res.send(indexHtml);
-                        res.render("index", {
-                              clientPackages: clientPackages.map(function (pkg) {
+                        var params = {
+                              clientPackages: json.stringify(clientPackages.map(function (pkg) {
                                     return {
                                           name: pkg.name,
                                           main: pkg.main,
                                           location: "/script/" + pkg.name
                                     };
-                              }),
+                              })),
                               clientAppPackageName: clientAppPackageName
-                        });
+                        };
+
+                        var indexHtml = string.substitute(indexTpl, params);
+
+                        res.send(indexHtml);
                   });
 
 
