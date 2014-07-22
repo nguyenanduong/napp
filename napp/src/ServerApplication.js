@@ -69,20 +69,18 @@ define([
             },
 
             _createStoreRoutes: function (app, stores) {
-                  var router;
-
                   for (var storeName in stores) {
                         if (stores.hasOwnProperty(storeName)) {
-                              router = this.express.Router();
+                              (function (storeName, store) {
+                                    var router = new this.express.Router();
 
-                              router.get("/:id", function (req, res) {
-                                    var store = stores[storeName];
-            
-                                    var item = store.get(req.params.id);
-                                    res.json(item);
-                              });
+                                    router.get("/:id", function (req, res) {
+                                          var item = store.get(req.params.id);
+                                          res.json(item);
+                                    });
 
-                              app.use("/store/" + storeName, router);
+                                    app.use("/store/" + storeName, router);
+                              }.bind(this))(storeName, stores[storeName]);
                         }
                   }
             }
