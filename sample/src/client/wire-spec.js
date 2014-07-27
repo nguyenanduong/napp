@@ -1,8 +1,8 @@
 define({
-	settings: {
-	    defaultView: "index",
-	    viewsSpec: "napp-sample-client/views/views-spec"
-	},
+    defaultView: "index",
+    viewsSpec: [
+    	"napp-sample-client/views/views-spec"
+    ],
 
     stores: {
     	club: {

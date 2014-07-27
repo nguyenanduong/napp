@@ -1,29 +1,25 @@
 define({
-    settings: {
-        // defaultView: "home",
-        // // viewsSpec: ""
-        // viewsSpec: {
-        //     builtin: {
-        //         // literal: {
-        //         //     home: {
-        //         //         view: {
-        //         //             create: {
-        //         //                 module: "napp/IntroView"
-        //         //             }
-        //         //         }
-        //         //     }
-        //         // }
-        //     }
-        // }
-    },
+    defaultView: "home",
+    viewsSpec: [{
+        literal: {
+            home: {
+                view: {
+                    create: {
+                        module: "napp/IntroView"
+                    }
+                }
+            }
+        }
+    }],
 
     viewContainer: {
         create: {
             module: "napp/ViewContainer",
             args: [
                 {
-                    defaultView: { $ref: "settings.defaultView" },
-                    viewsSpec: { $ref: "settings.viewsSpec" }
+                    createViewContext: { $ref: "wire!" },
+                    defaultView: { $ref: "defaultView" },
+                    viewsSpec: { $ref: "viewsSpec" }
                 },
                 
                 { $ref: "dom!root" }
