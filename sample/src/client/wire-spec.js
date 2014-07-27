@@ -1,14 +1,12 @@
 define({
 	settings: {
 	    defaultView: "index",
-	    views: { 
-	    	index: {
-	    		center: { 
-	        		widget: {
-						module: "napp-sample-client/views/IndexView"
-					},
-	        	}
-	    	}
-	    }
-	}
+	    viewsSpec: "napp-sample-client/views/views-spec"
+	},
+
+    stores: {
+    	club: {
+    		endPoint: "store/club"	    		
+    	}
+    }
 });

@@ -8,7 +8,9 @@ define([], function () {
 					try { 
 						if ( source[name].constructor==Object ) { 
 							dest[name] = this.deepMixin(dest[name], source[name]); 
-	                    } else { 
+	                    } else if ( source[name].constructor==Array ) {
+	                    	dest[name] = dest[name].concat(source[name]); 
+	                	} else { 
 	                        dest[name] = source[name]; 
 	                    }; 
 	                } catch(e) { 

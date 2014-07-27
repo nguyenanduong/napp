@@ -1,15 +1,20 @@
 define({
     settings: {
-        defaultView: "home",
-        views: {
-            home: {
-            	center: { 
-            		widget: {
-    					module: "napp/IntroView"
-    				},
-            	}
-            }
-        }
+        // defaultView: "home",
+        // // viewsSpec: ""
+        // viewsSpec: {
+        //     builtin: {
+        //         // literal: {
+        //         //     home: {
+        //         //         view: {
+        //         //             create: {
+        //         //                 module: "napp/IntroView"
+        //         //             }
+        //         //         }
+        //         //     }
+        //         // }
+        //     }
+        // }
     },
 
     viewContainer: {
@@ -18,7 +23,7 @@ define({
             args: [
                 {
                     defaultView: { $ref: "settings.defaultView" },
-                    views: { $ref: "settings.views" }
+                    viewsSpec: { $ref: "settings.viewsSpec" }
                 },
                 
                 { $ref: "dom!root" }
