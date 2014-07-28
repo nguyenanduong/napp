@@ -1,5 +1,5 @@
 define({
-	settings: {
+	appSettings: {
 		clientAppPackage: "napp-sample-client",
 
 		stores: {

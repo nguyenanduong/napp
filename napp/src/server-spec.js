@@ -18,13 +18,18 @@ define({
         }
     },
 
+    appSettings: {
+
+    },
+
     application: {
         create: {
             module: "napp/ServerApplication",
             args: {
             	listen: 8282,
             	express: { $ref: "express" },
-                packageManager: {$ref: "packageManager" }
+                packageManager: { $ref: "packageManager" },
+                appSettings: { $ref: "appSettings" }
             }
         }
     }    

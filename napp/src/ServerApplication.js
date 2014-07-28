@@ -20,16 +20,17 @@ define([
 		express: null,
 
             packageManager: null,
+            appSettings: null,
 
-		run: function (settings) {
-                  var clientAppPackageName = settings.clientAppPackage;
+		run: function () {
+                  var clientAppPackageName = this.appSettings.clientAppPackage;
 
                   when(this.packageManager.getDependentPackages(clientAppPackageName), function (clientPackages) {
                         var app = this.express();                        
 
                         this._createIndexRoute(app, clientPackages, clientAppPackageName);
                         this._createScriptRoutes(app, clientPackages);
-                        this._createStoreRoutes(app, settings.stores);
+                        this._createStoreRoutes(app, this.appSettings.stores);
 
                         app.listen(this.listen);
                         console.log("Listening on " + this.listen);                 
