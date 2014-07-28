@@ -22,6 +22,10 @@ define({
 
     },
 
+    stores: {
+
+    },
+
     application: {
         create: {
             module: "napp/ServerApplication",
@@ -29,7 +33,8 @@ define({
             	listen: 8282,
             	express: { $ref: "express" },
                 packageManager: { $ref: "packageManager" },
-                appSettings: { $ref: "appSettings" }
+                appSettings: { $ref: "appSettings" },
+                stores: { $ref: "stores" }
             }
         }
     }    

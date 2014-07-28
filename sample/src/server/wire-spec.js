@@ -1,12 +1,12 @@
 define({
 	appSettings: {
-		clientAppPackage: "napp-sample-client",
+		clientAppPackage: "napp-sample-client"
+	},
 
-		stores: {
-			club: {
-				create: {
-					module: "napp-sample-server/ClubStore"
-				}
+	stores: {
+		club: {
+			create: {
+				module: "napp-sample-server/ClubStore"
 			}
 		}
 	}

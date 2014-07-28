@@ -21,24 +21,25 @@ define([
 
             packageManager: null,
             appSettings: null,
+            stores: null,
 
 		run: function () {
                   var clientAppPackageName = this.appSettings.clientAppPackage;
 
                   when(this.packageManager.getDependentPackages(clientAppPackageName), function (clientPackages) {
-                        var app = this.express();                        
+                        var httpApp = this.express();                        
 
-                        this._createIndexRoute(app, clientPackages, clientAppPackageName);
-                        this._createScriptRoutes(app, clientPackages);
-                        this._createStoreRoutes(app, this.appSettings.stores);
+                        this._createIndexRoute(httpApp, clientPackages, clientAppPackageName);
+                        this._createScriptRoutes(httpApp, clientPackages);
+                        this._createStoreRoutes(httpApp, this.stores);
 
-                        app.listen(this.listen);
+                        httpApp.listen(this.listen);
                         console.log("Listening on " + this.listen);                 
 
                   }.bind(this));
 		},
 
-            _createIndexRoute: function (app, clientPackages, clientAppPackageName) {
+            _createIndexRoute: function (httpApp, clientPackages, clientAppPackageName) {
                   // TODO: Testability?
                   var indexRoutes = this.express.Router();
 
@@ -60,16 +61,16 @@ define([
                   });
 
 
-                  app.use("/", indexRoutes);
+                  httpApp.use("/", indexRoutes);
             },
 
-            _createScriptRoutes: function (app, clientPackages) {
+            _createScriptRoutes: function (httpApp, clientPackages) {
                   clientPackages.forEach(function(module) {
-                      app.use("/script/" + module.name, this.express.static(module.location));                       
+                      httpApp.use("/script/" + module.name, this.express.static(module.location));                       
                   }, this);
             },
 
-            _createStoreRoutes: function (app, stores) {
+            _createStoreRoutes: function (httpApp, stores) {
                   for (var storeName in stores) {
                         if (stores.hasOwnProperty(storeName)) {
                               (function (storeName, store) {
@@ -80,7 +81,7 @@ define([
                                           res.json(item);
                                     });
 
-                                    app.use("/store/" + storeName, router);
+                                    httpApp.use("/store/" + storeName, router);
                               }.bind(this))(storeName, stores[storeName]);
                         }
                   }
