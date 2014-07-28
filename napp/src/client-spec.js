@@ -1,8 +1,8 @@
 define({
-    defaultView: "home",
+    defaultView: "intro",
     viewsSpec: [{
         literal: {
-            home: {
+            intro: {
                 view: {
                     create: {
                         module: "napp/IntroView"

@@ -1,6 +1,8 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/promise/all",
+    "dojo/Deferred",
     "dojo/hash",
     "dojo/router",
     "dojo/when",
@@ -12,10 +14,14 @@ define([
     "dijit/layout/BorderContainer",
     "dijit/layout/ContentPane",
 
+    "napp/utils/lang",
+
     "dojo/text!./templates/ViewContainer.html"
 ], function (
     declare,
     lang,
+    all,
+    Deferred,
     hash,
     router,
     when,
@@ -27,6 +33,8 @@ define([
     BorderContainer,
     ContentPane,
 
+    langUtil,
+
     template) {
     
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
@@ -37,7 +45,7 @@ define([
         defaultView: null, // Injected
 
         _viewSpecsHash: null,        
-        _currentViewWidgets: [],
+        _currentViewWidget: null,
 
         postCreate: function () {
             this.inherited(arguments);
@@ -57,8 +65,25 @@ define([
                 this._loadView(viewName, paramHash);
             }).bind(this));
 
-            require([this.viewsSpec[1]], function (viewsSpec) {
-                this._viewSpecsHash = viewsSpec;                
+            // TODO: Extract to view loader component
+            var viewSpecLoaders = this.viewsSpec.map(function (spec) {
+                if (spec.constructor == String) {
+                    var d = new Deferred();
+                    require ([spec], function (loadedSpec) {
+                        d.resolve(loadedSpec);
+                    });
+                    return d;
+                } else if (spec.constructor == Object) {
+                    return spec;
+                }
+
+                return null;
+            });
+
+            when (all(viewSpecLoaders), function (viewsSpecs) {
+                this._viewSpecsHash = viewsSpecs.reduce(function (accumulated, item) {
+                    return langUtil.deepMixin(accumulated, item);
+                }, {});                
 
                 router.startup();
                 if (hash() === "") {
@@ -77,18 +102,21 @@ define([
             specToLoad[viewName] = this._viewSpecsHash[viewName];
 
             when(this.createViewContext(specToLoad), function (loadedViewSpec) {
+                this._unloadCurrentView();
+
                 widget = loadedViewSpec[viewName].view;
                 widget.region = "center";
                 this._container.addChild(widget);
+
+                this._currentViewWidget = widget;                
             }.bind(this));
         },
         
         _unloadCurrentView: function () {
-            if (this._currentViewWidgets) {
-                this._currentViewWidgets.forEach(function (widget) {
-                    widget.destroy();
-                });
-                this._currentViewWidgets = [];
+            if (this._currentViewWidget) {
+                this._container.removeChild(this._currentViewWidget);
+                this._currentViewWidget.destroy();
+                this._currentViewWidget = null;
             }      
         }
     });
