@@ -36,5 +36,5 @@ define({
         }
     },
 
-	plugins: [ { module: "wire/dom" } ]
+	plugins: [ { module: "wire/dom" }, { module: "napp/wire/rest", $ns: "napp" } ]
 });

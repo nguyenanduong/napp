@@ -5,8 +5,6 @@ define({
     ],
 
     stores: {
-    	club: {
-    		endPoint: "store/club"	    		
-    	}
+    	club: { $ref: "napp:rest!store/club/" }
     }
 });
