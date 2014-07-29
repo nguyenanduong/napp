@@ -17,11 +17,18 @@ define([
 				console.log(item);
 			});
 
-		// 	when(this.store.query({
-		// 		id: "AFC"
-		// 	}), function (item) {
-		// 		console.log(item);
-		// 	});
-		// }
+			when(this.store.query({
+				id: "AFC"
+			}, {
+				start: 10,
+				count: 10,
+				sort: [
+					{ attribute: "baz", descending: true }
+				]
+			}), function (items) {
+				
+				console.log(items);
+			});
+		}
 	});
 });
