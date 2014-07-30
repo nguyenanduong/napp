@@ -77,18 +77,18 @@ define([
                                     var router = new this.express.Router();
 
                                     router.get("/:id", function (req, res) {
-                                          // TODO: Async
-                                          var item = store.get(req.params.id);
-                                          res.json(item);
+                                          when(store.get(req.params.id), function (item) {
+                                                res.json(item);
+                                          });
                                     });
 
                                     router.get("/", function(req, res) {
-                                          // TODO: Async
                                           var query = lang.clone(req.query);
                                           var options = {}; // TODO: Map sort and range option
 
-                                          var items = store.query(req.query, options);
-                                          res.json(items);
+                                          when(store.query(req.query, options), function (items) {
+                                                res.json(items);
+                                          });
                                     });
 
                                     httpApp.use("/store/" + storeName, router);
