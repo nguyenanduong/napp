@@ -32,16 +32,15 @@ define([
 			};
 		},
 
-		put: function () {
-
+		put: function (item) {
+			console.log(item);
 		},
 
-		post: function () {
-
+		post: function (item) {
+			console.log(item);
 		},
 
-		delete: function () {
-
+		delete: function (id) {
 		}
 	});
 });

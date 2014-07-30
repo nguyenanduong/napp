@@ -3,6 +3,10 @@ define({
         module: "dojo/node!express"
     },
 
+    bodyParser: {
+        module: "dojo/node!body-parser" 
+    },
+
     dojoConfig: {
         module: "dojo/_base/config"
     },
@@ -32,6 +36,7 @@ define({
             args: {
             	listen: 8282,
             	express: { $ref: "express" },
+                bodyParser: { $ref: "bodyParser" },
                 packageManager: { $ref: "packageManager" },
                 appSettings: { $ref: "appSettings" },
                 stores: { $ref: "stores" }

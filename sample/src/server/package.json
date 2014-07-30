@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Napp sample - Server application",
   "dependencies": {
-    "express": "*"
+    "express": "*",
+    "body-parser": "*"
   },
   "jam": {
     "packageDir": "amd_modules",

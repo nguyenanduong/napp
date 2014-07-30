@@ -15,9 +15,11 @@ define([
       when,
       indexTpl) { 
 
+      // TODO: Refactor the server application. So many responsibilities here.
 	return declare([Stateful], {
 		listen: null,		
 		express: null,
+            bodyParser: null,
 
             packageManager: null,
             appSettings: null,
@@ -27,7 +29,9 @@ define([
                   var clientAppPackageName = this.appSettings.clientAppPackage;
 
                   when(this.packageManager.getDependentPackages(clientAppPackageName), function (clientPackages) {
-                        var httpApp = this.express();                        
+                        var httpApp = this.express();    
+
+                        httpApp.use(this.bodyParser.json());
 
                         this._createIndexRoute(httpApp, clientPackages, clientAppPackageName);
                         this._createScriptRoutes(httpApp, clientPackages);
@@ -76,6 +80,9 @@ define([
                                     var router = new this.express.Router();
 
                                     router.get("/:id", function (req, res) {
+                                          when(store.get(req.params.id), function (item) {
+                                                res.json(item);
+                                          });
                                     });
 
                                     router.get("/", function(req, res) {
@@ -126,6 +133,24 @@ define([
                                                 res.json(items);
                                           });
                                     });
+
+                                    router.delete("/:id", function (req, res) {
+                                          when(store.delete(req.params.id), function () {
+                                                res.send(204);
+                                          });
+                                    });
+
+                                    router.post("/", function (req, res) {
+                                          when(store.post(req.body), function () {
+                                                res.send(200, true);
+                                          });
+                                    });
+
+                                    router.put("/:id", function (req, res) {
+                                          when(store.put(req.body), function () {
+                                                res.send(200, true);
+                                          });
+                                    })
 
                                     httpApp.use("/store/" + storeName, router);
                               }.bind(this))(storeName, stores[storeName]);
