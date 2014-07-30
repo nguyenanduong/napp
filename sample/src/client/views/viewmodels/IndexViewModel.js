@@ -23,7 +23,8 @@ define([
 				start: 10,
 				count: 10,
 				sort: [
-					{ attribute: "baz", descending: true }
+					{ attribute: "foo", descending: true },
+					{ attribute: "bar", descending: false }
 				]
 			}), function (items) {
 				

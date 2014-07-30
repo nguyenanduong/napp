@@ -60,7 +60,6 @@ define([
                         res.send(indexHtml);
                   });
 
-
                   httpApp.use("/", indexRoutes);
             },
 
@@ -77,16 +76,53 @@ define([
                                     var router = new this.express.Router();
 
                                     router.get("/:id", function (req, res) {
-                                          when(store.get(req.params.id), function (item) {
-                                                res.json(item);
-                                          });
                                     });
 
                                     router.get("/", function(req, res) {
-                                          var query = lang.clone(req.query);
-                                          var options = {}; // TODO: Map sort and range option
+                                          var query = {}, options = {};
 
-                                          when(store.query(req.query, options), function (items) {
+                                          // Extract sort options and query
+                                          for (var key in req.query) {
+                                                if (req.query.hasOwnProperty(key)) {
+                                                      if (key.indexOf("sort") === 0) {
+                                                            options.sort = [];
+
+                                                            var parts = /^sort\((.*)\)$/g.exec(key);
+                                                            var sortInfo = parts[1];
+                                                            var sortParts = sortInfo.split(",");
+
+                                                            sortParts && sortParts.map(function (item) {
+                                                                  return item.trim();
+                                                            }).forEach(function (sortPart) {                                                                  
+                                                                  var sortPartDetails = /^(-*)(.*)$/.exec(sortPart);
+                                                                  options.sort.push({
+                                                                        attribute: sortPartDetails[2],
+                                                                        descending: sortPartDetails[1] === "-",
+                                                                  });
+                                                            });
+                                                      } else {
+                                                            query[key] = req.query[key];
+                                                      }
+                                                }
+                                          }
+
+                                          var range = req.header("range");
+                                          var rangeBounds = /^items=(\d+)-(\d+)$/.exec(range);
+                                          options.start = parseInt(rangeBounds[1]);
+                                          options.count = parseInt(rangeBounds[2]) - options.start + 1;
+
+                                          when(store.query(query, options), function (result) {
+                                                var items = result && result.data ? result.data : result;
+                                                var range = result && result.range ? result.range : null;
+
+                                                if (range) {
+                                                      res.header("Content-Range", lang.replace("items {start}-{end}/{total}", {
+                                                            start: range.start,
+                                                            end: range.start + items.length - 1,
+                                                            total: range.total
+                                                      }));
+                                                }
+
                                                 res.json(items);
                                           });
                                     });

@@ -14,16 +14,22 @@ define([
 			};
 		},
 
-		query: function (params) {
-			return [{
-				id: "AFC",
-				name: "AFC Daner",
-				fullName: "Alliance Football Clubs of Daner"
-			}, {
-				id: "FSB",
-				name: "FS Buriki",
-				fullName: "FS Buriki Football Club"
-			}]
+		query: function (params, options) {
+			return {
+				range: {
+					start: 0,
+					total: 2
+				},
+				data: [{
+					id: "AFC",
+					name: "AFC Daner",
+					fullName: "Alliance Football Clubs of Daner"
+				}, {
+					id: "FSB",
+					name: "FS Buriki",
+					fullName: "FS Buriki Football Club"
+				}]
+			};
 		},
 
 		put: function () {
