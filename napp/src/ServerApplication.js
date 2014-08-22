@@ -46,9 +46,11 @@ define([
             _createIndexRoute: function (httpApp, clientPackages, clientAppPackageName) {
                   // TODO: Testability?
                   var indexRoutes = this.express.Router();
+                  var appTitle = this.appSettings.title;
 
                   indexRoutes.get("/", function (req, res) {
                         var params = {
+                              title: appTitle,
                               clientPackages: json.stringify(clientPackages.map(function (pkg) {
                                     return {
                                           name: pkg.name,
@@ -69,7 +71,7 @@ define([
 
             _createScriptRoutes: function (httpApp, clientPackages) {
                   clientPackages.forEach(function(module) {
-                      httpApp.use("/script/" + module.name, this.express.static(module.location));                       
+                        httpApp.use("/script/" + module.name, this.express.static(module.location));                       
                   }, this);
             },
 
