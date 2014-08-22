@@ -23,7 +23,8 @@ define({
     },
 
     appSettings: {
-        tittle: "Napp - Zero page HTML 5 application"
+        tittle: "Napp - Zero page HTML 5 application",
+        listen: 8282
     },
 
     stores: {
@@ -34,7 +35,7 @@ define({
         create: {
             module: "napp/ServerApplication",
             args: {
-            	listen: 8282,
+            	listen: { $ref: "appSettings.listen" },
             	express: { $ref: "express" },
                 bodyParser: { $ref: "bodyParser" },
                 packageManager: { $ref: "packageManager" },
