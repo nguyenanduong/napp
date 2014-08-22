@@ -33,7 +33,7 @@ define([
         postscript: function () {
             this.inherited(arguments);
 
-            router.register(/^(\w*)(\?*)(.*)$/, (this, function (evt) {
+            router.register(/^([^\?]*)(\?*)(.*)$/, (this, function (evt) {
                 var viewName = evt.params[0],
                     paramString = evt.params[1],
                     paramHash = {};
