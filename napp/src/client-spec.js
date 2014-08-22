@@ -12,26 +12,35 @@ define({
         }
     }],
 
+
+
     viewContainer: {
         create: {
             module: "napp/ViewContainer",
             args: [
-                {
-                    createViewContext: { $ref: "wire!" },
-                    defaultView: { $ref: "defaultView" },
-                    viewsSpec: { $ref: "viewsSpec" }
-                },
-                
+                { },                
                 { $ref: "dom!root" }
             ]
         }
-    },    
+    },
+
+    viewManager: {
+        create: {
+            module: "napp/ViewManager",
+            args: {
+                viewContainer: { $ref: "viewContainer" },
+                createViewContext: { $ref: "wire!" },
+                defaultView: { $ref: "defaultView" },
+                viewsSpec: { $ref: "viewsSpec" }
+            }
+        }
+    },
     
     application: {
         create: {
             module: "napp/ClientApplication",
             args: {
-                viewContainer: { $ref: "viewContainer" }
+                viewManager: { $ref: "viewManager" }
             }
         }
     },

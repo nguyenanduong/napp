@@ -6,10 +6,10 @@ define([
     Stateful) {
 	
     return declare([Stateful], {
-        viewContainer: null,
+        viewManager: null,
         
         run: function () {
-        	this.viewContainer.startup();
+        	this.viewManager.startup();
         }
     });
 });
