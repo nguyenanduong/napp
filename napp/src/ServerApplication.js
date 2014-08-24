@@ -117,8 +117,10 @@ define([
 
                                           var range = req.header("range");
                                           var rangeBounds = /^items=(\d+)-(\d+)$/.exec(range);
-                                          options.start = parseInt(rangeBounds[1]);
-                                          options.count = parseInt(rangeBounds[2]) - options.start + 1;
+                                          if (rangeBounds) {
+                                                options.start = parseInt(rangeBounds[1]);
+                                                options.count = parseInt(rangeBounds[2]) - options.start + 1;
+                                          }
 
                                           when(store.query(query, options), function (result) {
                                                 var items = result && result.data ? result.data : result;
