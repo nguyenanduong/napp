@@ -140,19 +140,19 @@ define([
 
                                     router.delete("/:id", function (req, res) {
                                           when(store.delete(req.params.id), function () {
-                                                res.send(204);
+                                                res.status(204).end();
                                           });
                                     });
 
                                     router.post("/", function (req, res) {
-                                          when(store.post(req.body), function () {
-                                                res.send(200, true);
+                                          when(store.post(req.body), function (newId) {
+                                                res.header("Location", req.originalUrl + newId).status(200).end();
                                           });
                                     });
 
                                     router.put("/:id", function (req, res) {
                                           when(store.put(req.body), function () {
-                                                res.send(200, true);
+                                                res.status(200).end();
                                           });
                                     })
 
