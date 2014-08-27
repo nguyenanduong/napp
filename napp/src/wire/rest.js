@@ -1,10 +1,10 @@
 define([
-    "dojo/store/JsonRest",
+    "napp/patch/JsonRestStore",
     "dojo/store/Cache",
     "dojo/store/Memory",
     "dojo/store/Observable"
 ], function (
-    JsonRest,
+    JsonRestStore,
     Cache,
     MemoryStore,
     Observable) {
@@ -14,7 +14,7 @@ define([
             resolvers: {
                 rest: function(resolver, refName, refObj, wire) {
                     var cacheStore = new MemoryStore();
-                    var restStore = new JsonRest({
+                    var restStore = new JsonRestStore({
                         target: refName
                     });
 
