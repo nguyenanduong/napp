@@ -23,7 +23,7 @@ define({
     },
 
     appSettings: {
-        tittle: "Napp - Zero page HTML 5 application",
+        title: "Napp - Zero page HTML 5 application",
         listen: 8282
     },
 
