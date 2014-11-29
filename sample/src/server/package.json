@@ -1,0 +1,16 @@
+{
+  "name": "napp-sample-server",
+  "version": "0.0.1",
+  "description": "Napp sample - Server application",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*"
+  },
+  "jam": {
+    "packageDir": "amd_modules",
+    "dependencies": {
+      "napp": "linked",
+      "napp-sample-client": "linked"
+    }
+  }
+}
