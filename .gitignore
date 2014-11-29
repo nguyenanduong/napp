@@ -167,3 +167,9 @@ pip-log.txt
 #############
 node_modules
 amd_modules
+
+#############
+## Sublime
+#############
+*.sublime-project
+*.sublime-workspace
