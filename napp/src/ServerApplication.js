@@ -5,7 +5,7 @@ define([
 	"dojo/Stateful",
       "dojo/string",
       "dojo/when",
-      "dojo/text!./templates/index.html"
+      "requirejs-text!./templates/index.html"
 ], function (
 	declare,
       lang,

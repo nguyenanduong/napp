@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"description": "Napp - Node web application server.",
 	"dependencies": {
+		"requirejs": "*"
 	},
 	"bin": {
 		"napp": "napp.js"

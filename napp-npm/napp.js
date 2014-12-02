@@ -46,22 +46,33 @@ dojoConfig = {
 
     packages: packages,
     
-    deps: [ "napp/bootstrapper" ], // Load the napp module which contains the bootstrapper.
+    //deps: [ "napp/bootstrapper" ], // Load the napp module which contains the bootstrapper.
 
     config: {
         'napp/bootstrapper': {
             bootstrapSpec: "napp/server-spec",
             appPackage: appPackage
         }
-    }
+    },
+
+    nodeRequire: require
 };
  
-// Now load the Dojo loader
-var dojoPkg = packages.filter(function (pkg) {
-    return pkg.name === "dojo"
-})[0];
+//// Now load the Dojo loader
+//var dojoPkg = packages.filter(function (pkg) {
+//    return pkg.name === "dojo"
+//})[0];
 
-var dojoPath = path.join(dojoPkg.location, "dojo.js");
+//var dojoPath = path.join(dojoPkg.location, "dojo.js");
 
-require(dojoPath);
+//require(dojoPath);
 
+packages.forEach(function(pkg) {
+    require.main.paths.push(pkg.location + "/node_modules");
+})
+
+var requirejs = require("requirejs");
+requirejs.config(dojoConfig);
+requirejs(["napp/bootstrapper"], function() {
+    console.log("Bootstrapped");
+});

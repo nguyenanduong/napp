@@ -29,7 +29,7 @@ define([
 		_addDependentPackages: function (pkg, packages) {
 		    var def = new Deferred();
 		    packages.push(pkg);
-		    require(["dojo/text!" + pkg.location + "/package.json"], function (packageJsonTxt) {
+		    require(["requirejs-text!" + pkg.location + "/package.json"], function (packageJsonTxt) {
 		          var packageJson = json.parse(packageJsonTxt);
 		          var depPkgName;
 

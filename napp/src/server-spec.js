@@ -1,10 +1,10 @@
 define({
 	express: {
-        module: "dojo/node!express"
+        module: "express"
     },
 
     bodyParser: {
-        module: "dojo/node!body-parser" 
+        module: "body-parser" 
     },
 
     dojoConfig: {
