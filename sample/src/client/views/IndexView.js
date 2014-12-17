@@ -1,13 +1,13 @@
 define([
-	"dojo/_base/declare",
-	"dijit/_WidgetBase",
-	"dijit/_TemplatedMixin"
+    "delite/register",
+    "delite/Widget",
+    "delite/handlebars!./templates/IndexView.html"
 ], function (
-	declare,
-	_WidgetBase,
-	_TemplatedMixin) {
+	register,
+	Widget,
+	template) {
 
-	return declare([_WidgetBase, _TemplatedMixin], {
-		templateString: "<div><h1>Napp Sample application</h1></div>"
+	return register("napp-sample-indexview", [HTMLElement, Widget], {
+		template: template
 	});
 });

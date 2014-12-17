@@ -1,16 +1,16 @@
 define([
-    "dojo/_base/declare",
+    "dcl",
     "dojo/_base/lang",
     "dojo/promise/all",
     "dojo/Deferred",
     "dojo/hash",
     "dojo/router",
-    "dojo/Stateful",
+    "decor/Stateful",
     "dojo/when",
     
     "napp/utils/lang"
 ], function (
-    declare,
+    dcl,
     lang,
     all,
     Deferred,
@@ -21,7 +21,7 @@ define([
     
     langUtil) {
     
-    return declare([Stateful], {
+    return dcl([Stateful], {
         viewContainer: null, // Injected
         createViewContext: null, // Injected
         viewsSpec: null, // Injected
@@ -30,9 +30,7 @@ define([
         _viewSpecsHash: null,        
         _currentViewWidget: null,
 
-        postscript: function () {
-            this.inherited(arguments);
-
+        initialize: function () {
             router.register(/^([^\?]*)(\?*)(.*)$/, (this, function (evt) {
                 var viewName = evt.params[0],
                     paramString = evt.params[1],
@@ -73,12 +71,11 @@ define([
                     router.go(this.defaultView);
                 }
             }.bind(this));
-        },
-
-        startup: function () {
+            
+            this.viewContainer.placeAt(this.root);
             this.viewContainer.startup();
         },
-        
+
         _loadView: function (viewName, params) {
             var specToLoad = {};
             specToLoad[viewName] = this._viewSpecsHash[viewName];

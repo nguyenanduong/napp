@@ -12,7 +12,9 @@
       "dijit": ">1.8",
       "domReady": "2.0.1",
       "wire": "*",
-      "requirejs-text": "*"
+      "dcl": "*",
+      "decor": "*",
+      "deliteful": "*"
     }
   }
 }

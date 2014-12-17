@@ -13,9 +13,10 @@ define([
 	
 	var appPackage = moduleConfig.appPackage;
 	var bootstrapSpec = moduleConfig.bootstrapSpec;
+	var additionalParams = moduleConfig.additionalParams || {};
 
 	require([bootstrapSpec, appPackage + "/wire-spec"], function (nappSpec, appSpec) {
-		var spec = lang.deepMixin(nappSpec, appSpec);
+		var spec = lang.deepMixin(additionalParams, lang.deepMixin(nappSpec, appSpec));
 		when(wire(spec), function (loadedSpec) {
 			var app = loadedSpec.application;
 			

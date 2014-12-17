@@ -7,17 +7,11 @@ define({
         module: "body-parser" 
     },
 
-    dojoConfig: {
-        module: "dojo/_base/config"
-    },
-
     packageManager: {
         create: {
             module: "napp/PackageManager",
             args: {
-                packages: {
-                    $ref: "dojoConfig.packages"
-                }
+                packages: require.s.contexts._.config.packages // TODO: Send from napp-npm to bootstrapper
             }
         }
     },
@@ -35,12 +29,12 @@ define({
         create: {
             module: "napp/ServerApplication",
             args: {
-            	listen: { $ref: "appSettings.listen" },
             	express: { $ref: "express" },
                 bodyParser: { $ref: "bodyParser" },
                 packageManager: { $ref: "packageManager" },
                 appSettings: { $ref: "appSettings" },
-                stores: { $ref: "stores" }
+                stores: { $ref: "stores" },
+                requirejsPath: { $ref: "requirejsPath" }
             }
         }
     }    

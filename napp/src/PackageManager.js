@@ -1,19 +1,19 @@
 define([
-	"dojo/_base/declare",
+	"dcl",
 	"dojo/Deferred",	
 	"dojo/json",
 	"dojo/promise/all",
-	"dojo/Stateful",
+	"decor/Stateful",
 	"dojo/when"
 ], function (
-	declare,
+	dcl,
 	Deferred,
 	json,
 	all,
 	Stateful,
 	when) {
 
-	return declare([Stateful], {
+	return dcl([Stateful], {
 		packages: null,
 
 		getDependentPackages: function (packageName) {
