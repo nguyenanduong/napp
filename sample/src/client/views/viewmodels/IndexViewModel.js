@@ -1,18 +1,16 @@
 define([
-	"dojo/_base/declare",
-	"dojo/Stateful",
+	"dcl",
+	"decor/Stateful",
 	"dojo/when"
 ], function (
-	declare,
+	dcl,
 	Stateful,
 	when) {
 	
-	return declare([Stateful], {
+	return dcl([Stateful], {
 		store: null,
 
-		postscript: function () {
-			this.inherited(arguments);
-
+		initialize: function () {
 			// GET
 			// when(this.store.get("AFC"), function (item) {
 			// 	console.log(item);
