@@ -4,7 +4,8 @@
   "description": "Napp sample - Client application",
   "jam": {
     "dependencies": {
-      "napp": "linked"
+      "napp": "linked",
+      "liaison": "*"
     }
   }
 }

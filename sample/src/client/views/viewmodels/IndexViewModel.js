@@ -10,6 +10,8 @@ define([
 	return dcl([Stateful], {
 		store: null,
 
+		greeting: "Hello, I am napp",
+
 		initialize: function () {
 			// GET
 			// when(this.store.get("AFC"), function (item) {

@@ -2,15 +2,17 @@ define([
 	"dcl",
     "delite/register",
     "delite/Widget",
-    "delite/handlebars!./templates/IndexView.html"
+    "requirejs-text!./templates/IndexView.html",
+    "liaison/delite/createRenderer"
 ], function (
 	dcl,
 	register,
 	Widget,
-	template) {
+	template,
+	createRenderer) {
 
 	return register("napp-sample-indexview", [HTMLElement, Widget], {
-		template: template,
+		render: createRenderer(template),
 
 		startup: dcl.superCall(function(base) {
 			return function() {
