@@ -1,13 +1,13 @@
 define([
-	"dojo/_base/declare",
+	"dcl",
       "dojo/_base/lang",
       "dojo/json",
-	"dojo/Stateful",
+	"decor/Stateful",
       "dojo/string",
       "dojo/when",
-      "dojo/text!./templates/index.html"
+      "requirejs-text!./templates/index.html"
 ], function (
-	declare,
+	dcl,
       lang,
       json,
 	Stateful,
@@ -16,12 +16,12 @@ define([
       indexTpl) { 
 
       // TODO: Refactor the server application. So many responsibilities here.
-	return declare([Stateful], {
-		listen: null,		
+	return dcl([Stateful], {
 		express: null,
             bodyParser: null,
 
             packageManager: null,
+            requirejsPath: null,
             appSettings: null,
             stores: null,
 
@@ -37,8 +37,8 @@ define([
                         this._createScriptRoutes(httpApp, clientPackages);
                         this._createStoreRoutes(httpApp, this.stores);
 
-                        httpApp.listen(this.listen);
-                        console.log("Listening on " + this.listen);                 
+                        httpApp.listen(this.appSettings.listen);
+                        console.log("Listening on " + this.appSettings.listen);                 
 
                   }.bind(this));
 		},
@@ -70,8 +70,9 @@ define([
             },
 
             _createScriptRoutes: function (httpApp, clientPackages) {
+                  httpApp.use("/script/requirejs", this.express.static(this.requirejsPath)); // TODO: Use another express middleware to serve 1 file only.
                   clientPackages.forEach(function(module) {
-                        httpApp.use("/script/" + module.name, this.express.static(module.location));                       
+                        httpApp.use("/script/" + module.name, this.express.static(module.location));
                   }, this);
             },
 

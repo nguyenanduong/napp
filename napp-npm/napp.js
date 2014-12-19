@@ -32,36 +32,28 @@ var nappDir = packages.filter(function (pkg) {
     return pkg.name === "napp";
 })[0].location
 
-// setup dojo config
-dojoConfig = {
-    async: 1, // We want to make sure we are using the "modern" loader
-    hasCache: {
-        "host-node": 1, // Ensure we "force" the loader into Node.js mode
-        "dom": 0 // Ensure that none of the code assumes we have a DOM
-    },
-    // While it is possible to use config-tlmSiblingOfDojo to tell the
-    // loader that your packages share the same root path as the loader,
-    // this really isn't always a good idea and it is better to be
-    // explicit about our package map.
+// add search path to node's require, so it is possible to use node modules from amd modules
+packages.forEach(function(pkg) {
+    require.main.paths.push(pkg.location + "/node_modules");
+})
 
+// setup requirejs config
+var requirejsConfig = {
     packages: packages,
-    
-    deps: [ "napp/bootstrapper" ], // Load the napp module which contains the bootstrapper.
-
     config: {
         'napp/bootstrapper': {
             bootstrapSpec: "napp/server-spec",
-            appPackage: appPackage
+            appPackage: appPackage,
+            additionalParams: {
+                requirejsPath: __dirname + "/node_modules/requirejs"
+            }
         }
-    }
+    },
+    nodeRequire: require
 };
  
-// Now load the Dojo loader
-var dojoPkg = packages.filter(function (pkg) {
-    return pkg.name === "dojo"
-})[0];
-
-var dojoPath = path.join(dojoPkg.location, "dojo.js");
-
-require(dojoPath);
-
+var requirejs = require("requirejs");
+requirejs.config(requirejsConfig);
+requirejs(["napp/bootstrapper"], function() {
+    console.log("Bootstrapped");
+});

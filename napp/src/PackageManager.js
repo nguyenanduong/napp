@@ -1,19 +1,19 @@
 define([
-	"dojo/_base/declare",
+	"dcl",
 	"dojo/Deferred",	
 	"dojo/json",
 	"dojo/promise/all",
-	"dojo/Stateful",
+	"decor/Stateful",
 	"dojo/when"
 ], function (
-	declare,
+	dcl,
 	Deferred,
 	json,
 	all,
 	Stateful,
 	when) {
 
-	return declare([Stateful], {
+	return dcl([Stateful], {
 		packages: null,
 
 		getDependentPackages: function (packageName) {
@@ -29,7 +29,7 @@ define([
 		_addDependentPackages: function (pkg, packages) {
 		    var def = new Deferred();
 		    packages.push(pkg);
-		    require(["dojo/text!" + pkg.location + "/package.json"], function (packageJsonTxt) {
+		    require(["requirejs-text!" + pkg.location + "/package.json"], function (packageJsonTxt) {
 		          var packageJson = json.parse(packageJsonTxt);
 		          var depPkgName;
 

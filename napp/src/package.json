@@ -2,12 +2,19 @@
   "name": "napp",
   "version": "0.0.2",
   "description": "Napp - Node application framework",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*"
+  },
   "jam": {
     "dependencies": {
     	"dojo": ">1.8",
       "dijit": ">1.8",
       "domReady": "2.0.1",
-      "wire": "*"
+      "wire": "*",
+      "dcl": "*",
+      "decor": "*",
+      "deliteful": "*"
     }
   }
 }

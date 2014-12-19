@@ -1,12 +1,20 @@
 define([
-	"dojo/_base/declare",
-	"dijit/layout/ContentPane"
+    "delite/register",
+    "delite/Widget",
+    "delite/handlebars!./templates/IntroView.html"
 ], function (
-	declare,
-	ContentPane) {
+	register, 
+	Widget, 
+	template) {
 
-	return declare([ContentPane], {
-		content: "<h1>Napp - Zero page web application framework for nodejs and dojo</h1>"
-	});
+    return register("napp-introview", [HTMLElement, Widget], {
+            // my template
+            template: template,
 
+            // my public properties
+            greeting: "Napp - Zero page web application framework for nodejs and dojo"
+        }
+    );
 });
+
+

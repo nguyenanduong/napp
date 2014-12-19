@@ -1,11 +1,11 @@
 define([
-	"dojo/_base/declare",
-	"dojo/Stateful"
+	"dcl",
+	"decor/Stateful"
 ], function (
-	declare,
+	dcl,
 	Stateful) {
 
-	return declare([Stateful], {
+	return dcl([Stateful], {
 
 	});
 

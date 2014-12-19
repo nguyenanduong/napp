@@ -16,11 +16,8 @@ define({
 
     viewContainer: {
         create: {
-            module: "napp/ViewContainer",
-            args: [
-                { },                
-                { $ref: "dom!root" }
-            ]
+            module: "deliteful/ViewStack",
+            args: { }                
         }
     },
 
@@ -28,6 +25,7 @@ define({
         create: {
             module: "napp/ViewManager",
             args: {
+                root: { $ref: "dom!root" },
                 viewContainer: { $ref: "viewContainer" },
                 createViewContext: { $ref: "wire!" },
                 defaultView: { $ref: "defaultView" },
