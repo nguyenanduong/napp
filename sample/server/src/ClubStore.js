@@ -1,11 +1,11 @@
 define([
-	"dojo/_base/declare",
+	"dcl",
 	"napp/StoreController"
 ], function (
-	declare,
+	dcl,
 	StoreController) {
 
-	return declare([StoreController], {
+	return dcl([StoreController], {
 		get: function (id) {
 			return {
 				id: "AFC",
