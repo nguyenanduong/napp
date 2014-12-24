@@ -8,10 +8,9 @@ var appDir = path.resolve(args[0]);
 
 // load package.json and determine jam folder
 var packageJson = require(path.join(appDir, "package.json"));
-var jamDir = path.join(appDir, packageJson.jam.packageDir);
 
-// load require config from jam
-var requireConfig = require(path.join(jamDir, "require.config.js"));
+// load require config
+var requireConfig = require(path.join(appDir, "require.config.js"));
 var packages = requireConfig.packages.map(function (pkg) {
     var main = pkg.main && /.js$/.test(pkg.main) ? pkg.main.substr(0, pkg.main.length - 3) : pkg.main;
     return {
@@ -21,21 +20,7 @@ var packages = requireConfig.packages.map(function (pkg) {
     }
 });
 
-// add app package
-var appPackage = packageJson.name;
-packages.push({
-    name: appPackage,
-    location: appDir
-});
-
-var nappDir = packages.filter(function (pkg) {
-    return pkg.name === "napp";
-})[0].location
-
-// add search path to node's require, so it is possible to use node modules from amd modules
-packages.forEach(function(pkg) {
-    require.main.paths.push(pkg.location + "/node_modules");
-})
+require.main.paths.push(path.join(appDir, "node_modules"));
 
 // setup requirejs config
 var requirejsConfig = {
@@ -43,7 +28,7 @@ var requirejsConfig = {
     config: {
         'napp/bootstrapper': {
             bootstrapSpec: "napp/server-spec",
-            appPackage: appPackage,
+            appPackage: packageJson.name,
             additionalParams: {
                 requirejsPath: __dirname + "/node_modules/requirejs"
             }

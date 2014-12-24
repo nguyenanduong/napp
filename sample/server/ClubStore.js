@@ -6,7 +6,7 @@ define([
 	StoreController) {
 
 	return dcl([StoreController], {
-		get: function (id) {
+		get: function (/*id*/) {
 			return {
 				id: "AFC",
 				name: "AFC Daner",
@@ -14,7 +14,7 @@ define([
 			};
 		},
 
-		query: function (params, options) {
+		query: function (/*params, options*/) {
 			return {
 				range: {
 					start: 0,
@@ -40,7 +40,7 @@ define([
 			console.log(item);
 		},
 
-		delete: function (id) {
+		delete: function (/*id*/) {
 		}
 	});
 });
