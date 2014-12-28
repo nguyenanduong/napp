@@ -18,7 +18,7 @@ define([
 			return function() {
 				base.apply(this, arguments);
 				this.model.initialize();
-			}
+			};
 		})
 	});
 });

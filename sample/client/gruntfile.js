@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     nappSetup: {
       all: {
         options: {
-          installIndirectNPMDeps: true
+          installIndirectNPMDeps:false
         }
       }
     }

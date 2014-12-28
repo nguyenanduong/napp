@@ -13,13 +13,16 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerTask('napp_setup', 'The best Grunt plugin ever.', function() {
+  grunt.registerMultiTask('nappSetup', 'The best Grunt plugin ever.', function() {
     var path = require("path");
     var npm = require("npm");
 
     // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-    });
+    var options = this.options();//{
+      //installIndirectNPMDeps: false
+    //});
+
+    console.log(options);
 
     var done = this.async();
 
@@ -80,22 +83,25 @@ module.exports = function(grunt) {
     grunt.file.write("require.config.js", content);
     console.log("require.config.js generated.");
 
-    npm.load(function (err, npm) {
-      if (err) {
-        grunt.log.error(err);
-        return;
-      }
-
-      npm.commands.install(deps, function (err) {
-        if (!err) {
-          console.log("Node dependencies from AMD packages installed");
-        } else {
-          console.log("Error: " + err);
-          grunt.error();
+    if (options.installIndirectNPMDeps) {
+      npm.load(function (err, npm) {
+        if (err) {
+          grunt.log.error(err);
+          return;
         }
-        done();
-      });
-    });
-  });
 
+        npm.commands.install(deps, function (err) {
+          if (!err) {
+            console.log("Node dependencies from AMD packages installed");
+          } else {
+            console.log("Error: " + err);
+            grunt.error();
+          }
+          done();
+        });
+      });
+    } else {
+      done();
+    }
+  });
 };
