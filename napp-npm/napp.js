@@ -30,13 +30,14 @@ var requirejsConfig = {
             bootstrapSpec: "napp/server-spec",
             appPackage: packageJson.name,
             additionalParams: {
-                requirejsPath: __dirname + "/node_modules/requirejs"
+                requirejsPath: path.resolve(path.dirname(require.resolve("requirejs")), "..")
             }
         }
     },
     nodeRequire: require
 };
  
+console.log(require.resolve("requirejs"));
 var requirejs = require("requirejs");
 requirejs.config(requirejsConfig);
 requirejs(["napp/bootstrapper"], function() {

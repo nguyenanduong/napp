@@ -38,8 +38,7 @@ define([
                         this._createStoreRoutes(httpApp, this.stores);
 
                         httpApp.listen(this.appSettings.listen);
-                        console.log("Listening on " + this.appSettings.listen);                 
-
+                        console.log("Listening on " + this.appSettings.listen);
                   }.bind(this));
 		},
 
