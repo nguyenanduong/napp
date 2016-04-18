@@ -3,8 +3,10 @@
     <title>${title}</title>
     <script type="text/javascript">
       require = {
-        paths: { 
-          "wire/domReady": "/script/domReady/domReady"
+        map: { 
+          "*" : {
+            "wire/domReady": "requirejs-domready/domReady"
+          }
         },
         packages: ${clientPackages},
         deps: ["napp/bootstrapper"],

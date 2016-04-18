@@ -167,6 +167,8 @@ pip-log.txt
 #############
 node_modules
 amd_modules
+require.config.js
+npm-debug.log
 
 #############
 ## Sublime
