@@ -11,7 +11,6 @@ define([
 		label: null,
 		
 		execute: function () {
-
 		}		
 	});
 })

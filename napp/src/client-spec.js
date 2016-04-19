@@ -12,8 +12,6 @@ define({
         }
     }],
 
-
-
     viewContainer: {
         create: {
             module: "deliteful/ViewStack",
