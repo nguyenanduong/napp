@@ -28,7 +28,21 @@ define([
             this.object.removeEventListener(this.eventName, this.boundEventListenerCallback);
             this.boundEventListenerCallback = null;
         }
+        if (this.observeHandle) {
+            this.observeHandle.remove();
+            this.observeHandle = null;
+        }
     };    
+    CommandBindingTarget.prototype.bind = function () {
+        BindingTarget.prototype.bind.apply(this, EMPTY_ARRAY.slice.call(arguments));
+        var command = this.source.value;
+        this.object.disabled = !command.canExecute;
+        if (command) {
+            this.observeHandle = command.observe(function () {
+                this.object.disabled = !command.canExecute;
+            }.bind(this));
+        }
+    };
 
     var defaultBind = HTMLElement.prototype.bind;
     HTMLElement.prototype.bind = function (property, source) {
