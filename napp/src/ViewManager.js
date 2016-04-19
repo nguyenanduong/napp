@@ -8,7 +8,8 @@ define([
     "decor/Stateful",
     "dojo/when",
     
-    "napp/utils/lang"
+    "napp/utils/lang",
+    "delite/theme!delite/themes/{{theme}}/global.css"
 ], function (
     dcl,
     lang,

@@ -1,16 +1,20 @@
 define([
 	"dcl",
 	"decor/Stateful",
-	"dojo/when"
+	"dojo/when",
+	"napp/Command"
 ], function (
 	dcl,
 	Stateful,
-	when) {
+	when,
+	Command) {
 	
 	return dcl([Stateful], {
 		store: null,
 
 		greeting: "Hello, I am napp",
+
+		goCommand: null,
 
 		initialize: function () {
 			// GET
@@ -53,6 +57,10 @@ define([
 			// }), function (result) {
 			// 	console.log(result);
 			// });
+		},
+
+		onGo: function () {
+			alert(this.greeting);
 		}
 	});
 });
